@@ -1,1 +1,1 @@
-# Employee Onboarding and Provisionig Orchestrator
+# Employee Onboarding and Provisioning Orchestrator

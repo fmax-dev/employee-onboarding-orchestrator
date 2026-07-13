@@ -1,0 +1,21 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Orchestrates account provisioning across Slack, GitHub, and AWS."
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.139.0",
+    "httpx>=0.28.1",
+    "scalar-fastapi>=1.8.2",
+    "uvicorn>=0.51.0",
+]
+
+[tool.uv]
+# Project lives in a OneDrive folder where hardlinking from uv's cache fails
+# (os error 396). Copy files into .venv instead.
+link-mode = "copy"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
