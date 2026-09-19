@@ -5,3 +5,5 @@ project
 .vscode
 .mypy_cache
 __pycache__
+.idea
+.ruff_cache
