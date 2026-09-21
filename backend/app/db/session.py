@@ -1,20 +1,14 @@
-from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
-from sqlmodel.ext.asyncio import AsyncSession  # pyright: ignore[reportMissingImports]
+from collections.abc import AsyncGenerator
 
-from backend.app.core.config import settings
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-engine = create_async_engine(
-    url=settings.DATABASE_URL,
-    echo=True
-)
+from app.core.config import settings
 
-async_session_local = async_sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False
-)
+engine = create_async_engine(url=settings.DATABASE_URL, echo=True)
 
-async def get_session():
-    async with async_session_local() as session:
+AsyncSessionLocal = async_sessionmaker(engine, expire_on_commit=False)
+
+
+async def get_session() -> AsyncGenerator[AsyncSession, None]:
+    async with AsyncSessionLocal() as session:
         yield session
-
