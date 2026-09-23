@@ -24,11 +24,7 @@ class JobStatus(str, Enum):
 class OnboardingJob(Base):
     __tablename__ = "onboarding_job"
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        Uuid, 
-        primary_key=True, 
-        default=uuid.uuid4
-    )
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     employee_id: Mapped[str]
     first_name: Mapped[str]
     last_name: Mapped[str]
@@ -44,14 +40,9 @@ class OnboardingJob(Base):
         ).hexdigest(),
     )
     status: Mapped[JobStatus] = mapped_column(default=JobStatus.pending)
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime,
-        server_default=func.now()
-    )
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime,
-        server_default=func.now(),
-        onupdate=func.now()
+        DateTime, server_default=func.now(), onupdate=func.now()
     )
     tasks: Mapped[list["ProvisioningTask"]] = relationship(
         back_populates="job", cascade="all, delete-orphan"

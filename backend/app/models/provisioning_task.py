@@ -16,6 +16,7 @@ class TaskKind(str, Enum):
     identity = "identity"
     invitation = "invitation"
 
+
 class ServiceName(str, Enum):
     google_workspace = "google_workspace"
     slack = "slack"
@@ -36,8 +37,7 @@ class ProvisioningTask(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     onboarding_job_id: Mapped[uuid.UUID] = mapped_column(
-        Uuid, 
-        ForeignKey("onboarding_job.id")
+        Uuid, ForeignKey("onboarding_job.id")
     )
     job: Mapped["OnboardingJob"] = relationship(back_populates="tasks")
     service: Mapped[ServiceName]
@@ -47,17 +47,7 @@ class ProvisioningTask(Base):
     account_email: Mapped[str | None]
     details: Mapped[str | None]
     error_message: Mapped[str | None]
-    created_at: Mapped[datetime] = mapped_column(
-        DateTime, 
-        server_default=func.now()
-    )
+    created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(
-        DateTime, 
-        server_default=func.now(), 
-        onupdate=func.now()
+        DateTime, server_default=func.now(), onupdate=func.now()
     )
-
-
-
-
-
