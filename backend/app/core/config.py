@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     GITHUB_ORG: str | None = None
     REDIS_URL: str | None = None
 
+    COMPANY_DOMAIN: str | None = None
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
